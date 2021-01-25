@@ -31,7 +31,6 @@ class NewsDbProvider {
                 score INTEGER,
                 title TEXT,
                 descendants INTEGER
-
               )
             '''
           );
@@ -49,5 +48,9 @@ class NewsDbProvider {
       return ItemModel.fromDb(maps.first);
     }
     return null;
+  }
+
+  addItem(ItemModel item){
+    return db.insert("Items", item.toMap());
   }
 }
