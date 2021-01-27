@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:perfomante/src/blocs/stories_provider.dart';
 import 'package:perfomante/src/screens/newsList.dart';
 
 class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title:'Perfomante',
-      home: NewsList(),
+    return StoriesProvider(
+      child: MaterialApp(
+        title: 'Perfomante',
+        home: NewsList(),
+      ),
     );
   }
 }
