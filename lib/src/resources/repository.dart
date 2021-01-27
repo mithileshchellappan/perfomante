@@ -7,6 +7,8 @@ class Repository {
   NewsDbProvider dbProvider = NewsDbProvider();
   NewsApiProvider apiProvider = NewsApiProvider();
 
+  
+
   Future<List<int>> fetchTopIds(){
     return apiProvider.fetchTopIds();
   }
@@ -25,9 +27,9 @@ class Repository {
 abstract class Source{
   Future<List<int>> fetchTopIds();
   Future<ItemModel> fetchItem(int id);
-  
+
 }
 
 abstract class Cache{
-
+  Future<int> addItem(ItemModel itemModel);
 }
