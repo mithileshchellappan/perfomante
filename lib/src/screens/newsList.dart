@@ -22,7 +22,10 @@ class NewsList extends StatelessWidget {
         if (!snapshot.hasData) {
           print('no data');
           return Center(child: CircularProgressIndicator());
-        } else {
+        }
+        
+        else {
+          print(snapshot.data.length.toString());
           print('has data');
           return ListView.builder(
             itemCount: snapshot.data.length,
