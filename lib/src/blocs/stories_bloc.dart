@@ -3,8 +3,8 @@ import '../models/item_model.dart';
 import '../resources/repository.dart';
 
 class StoriesBloc {
-  final _topIds = PublishSubject<List<int>>();
   final _repository = Repository();
+  final _topIds = PublishSubject<List<int>>();
   final _items = BehaviorSubject<int>();
 
   Stream<Map<int,Future<ItemModel>>> items;
@@ -25,7 +25,8 @@ class StoriesBloc {
 
   _itemsTransformer() {
     return ScanStreamTransformer(
-      (Map<int, Future<ItemModel>> cache, int id, _) {
+      (Map<int, Future<ItemModel>> cache, int id, index) {
+        print('call $index');
         cache[id] = _repository.fetchItem(id);
         return cache;
       },

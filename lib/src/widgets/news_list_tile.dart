@@ -11,17 +11,25 @@ class NewsListTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final bloc = StoriesProvider.of(context);
 
-    return StreamBuilder(
+ return StreamBuilder(
       stream: bloc.items,
       builder: (context, AsyncSnapshot<Map<int, Future<ItemModel>>> snapshot) {
         if (!snapshot.hasData) {
           return Text('Stream Loading');
-        } else {
-          return FutureBuilder(builder: (context, snapshot) {
-            return Text(snapshot.data[0].toString());
-          });
         }
+
+        return FutureBuilder(
+          future: snapshot.data[itemId],
+          builder: (context, AsyncSnapshot<ItemModel> itemSnapshot) {
+            if (!itemSnapshot.hasData) {
+              return  Text('Loading Item $itemId');
+            }
+
+            return  Text(itemSnapshot.data.title);
+          },
+        );
       },
     );
   }
 }
+
