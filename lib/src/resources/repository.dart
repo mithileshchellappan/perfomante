@@ -9,7 +9,7 @@ class Repository {
   List<Cache> caches = <Cache>[newsDbProvider];
 
   Future<List<int>> fetchTopIds() {
-    print('at fetch ids ');
+    //print('at fetch ids ');
     print(sources[1].fetchTopIds());
     return sources[1].fetchTopIds();
   }
@@ -24,12 +24,13 @@ class Repository {
         break;
       }
     }
-    for(var cache in caches){
-      cache.addItem(item);
+    for (var cache in caches) {
+      if (cache != (source as Cache)) {
+        cache.addItem(item);
+      }
     }
     return item;
   }
-  
 }
 
 abstract class Source {
