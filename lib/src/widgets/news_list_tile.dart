@@ -5,16 +5,19 @@ import 'dart:async';
 
 class NewsListTile extends StatelessWidget {
   final int itemId;
+  
 
   NewsListTile({this.itemId});
   @override
   Widget build(BuildContext context) {
     final bloc = StoriesProvider.of(context);
-
+  
  return StreamBuilder(
       stream: bloc.items,
       builder: (context, AsyncSnapshot<Map<int, Future<ItemModel>>> snapshot) {
+        //print(snapshot.data.length.toString);
         if (!snapshot.hasData) {
+          print(snapshot.data);
           return Text('Stream Loading');
         }
 

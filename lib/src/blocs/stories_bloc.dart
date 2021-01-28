@@ -5,25 +5,31 @@ import '../resources/repository.dart';
 class StoriesBloc {
   final _repository = Repository();
   final _topIds = PublishSubject<List<int>>();
-  final _items = BehaviorSubject<int>();
+  final _itemsOutput = BehaviorSubject<Map<int,Future<ItemModel>>>();
+  final _itemsFetcher = PublishSubject<int>();
 
-  Stream<Map<int,Future<ItemModel>>> items;
-
+  //to sink getters
   Stream<List<int>> get topIds => _topIds.stream;
+  Stream<Map<int,Future<ItemModel>>> get items => _itemsOutput.stream;
 
   //getters to sinks
-  Function(int) get fetchItem => _items.sink.add;
+  Function(int) get fetchItem => _itemsFetcher.sink.add;
 
   StoriesBloc() {
-   items =  _items.stream.transform(_itemsTransformer());
+    print('at cons');
+
+    _itemsFetcher.stream.transform(_itemsTransformer()).pipe(_itemsOutput);
   }
 
   fetchTopIds() async {
+    print('at fetch top ids');
     final ids = await _repository.fetchTopIds();
     _topIds.sink.add(ids);
+    print('ides $ids');
   }
 
   _itemsTransformer() {
+    print('at transformer');
     return ScanStreamTransformer(
       (Map<int, Future<ItemModel>> cache, int id, index) {
         print('call $index');
@@ -36,6 +42,7 @@ class StoriesBloc {
 
   dispose() {
     _topIds.close();
-    _items.close();
+    _itemsFetcher.close();
+    _itemsOutput.close();
   }
 }

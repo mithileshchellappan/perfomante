@@ -9,6 +9,8 @@ class Repository {
   List<Cache> caches = <Cache>[newsDbProvider];
 
   Future<List<int>> fetchTopIds() {
+    print('at fetch ids ');
+    print(sources[1].fetchTopIds());
     return sources[1].fetchTopIds();
   }
 
