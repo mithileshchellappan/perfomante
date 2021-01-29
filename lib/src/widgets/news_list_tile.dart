@@ -5,14 +5,13 @@ import 'dart:async';
 
 class NewsListTile extends StatelessWidget {
   final int itemId;
-  
 
   NewsListTile({this.itemId});
   @override
   Widget build(BuildContext context) {
     final bloc = StoriesProvider.of(context);
-  
- return StreamBuilder(
+
+    return StreamBuilder(
       stream: bloc.items,
       builder: (context, AsyncSnapshot<Map<int, Future<ItemModel>>> snapshot) {
         //print(snapshot.data.length.toString);
@@ -25,22 +24,27 @@ class NewsListTile extends StatelessWidget {
           future: snapshot.data[itemId],
           builder: (context, AsyncSnapshot<ItemModel> itemSnapshot) {
             if (!itemSnapshot.hasData) {
-              return  Text('Loading Item $itemId');
+              return Text('Loading Item $itemId');
             }
 
-            return  buildTile(itemSnapshot.data);
+            return buildTile(itemSnapshot.data);
           },
         );
       },
     );
   }
-  Widget buildTile(ItemModel item){
-    return ListTile(
-        title: Text(item.title),
-        subtitle: Text(item.score.toString() + ' votes'),
-        trailing: Column(children: [Icon(Icons.comment),Text(item.descendants.toString())],),
 
+  Widget buildTile(ItemModel item) {
+    return Column(
+      children: [
+        ListTile(
+          title: Text(item.title),
+          subtitle: Text(item.score.toString() + ' votes'),
+          trailing: Column(
+            children: [Icon(Icons.comment), Text(item.descendants.toString())],
+          ),
+        ),Divider(thickness: 3,height: 10.0,),
+      ],
     );
   }
 }
-
