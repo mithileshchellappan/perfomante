@@ -28,6 +28,10 @@ class StoriesBloc {
     print('ides $ids');
   }
 
+  Future<int> clearCache(){
+    return _repository.clearCache();
+  }
+
   _itemsTransformer() {
     print('at transformer');
     return ScanStreamTransformer(
