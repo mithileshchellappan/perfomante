@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:perfomante/src/blocs/stories_bloc.dart';
+import 'package:perfomante/src/widgets/refresh.dart';
 import '../blocs/stories_provider.dart';
 import '../widgets/news_list_tile.dart';
 
@@ -22,21 +23,17 @@ class NewsList extends StatelessWidget {
       stream: bloc.topIds,
       builder: (context, snapshot) {
         if (!snapshot.hasData) {
-          print('no data');
           return Center(child: CircularProgressIndicator());
-        }
-        
-        else {
-          print(snapshot.data.length.toString());
-          print('has data');
-          return ListView.builder(
+        } else {
+          return Refresh(
+              child: ListView.builder(
             itemCount: snapshot.data.length,
             itemBuilder: (context, int index) {
               print('index ${snapshot.data[index]}');
-              bloc.fetchItem(snapshot.data[index]); 
-              return NewsListTile(itemId:snapshot.data[index]);
+              bloc.fetchItem(snapshot.data[index]);
+              return NewsListTile(itemId: snapshot.data[index]);
             },
-          );
+          ));
         }
       },
     );
