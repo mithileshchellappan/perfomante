@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:perfomante/src/blocs/stories_provider.dart';
 import 'package:perfomante/src/screens/newsList.dart';
+import 'package:perfomante/src/screens/news_detail.dart';
 
 class App extends StatelessWidget {
   @override
@@ -9,14 +10,24 @@ class App extends StatelessWidget {
       child: MaterialApp(
         title: 'Perfomante',
         home: NewsList(),
-        onGenerateRoute: (RouteSettings settings) {
-          return MaterialPageRoute(
-            builder: (context) {
-              return NewsList();
-            },
-          );
-        },
+        onGenerateRoute: routes,
       ),
     );
   }
+}
+
+Route routes(RouteSettings settings) {
+  if(settings.name == '/'){
+    return MaterialPageRoute(
+    builder: (context) {
+      return NewsList();
+    },
+  );
+  }
+  else{
+    return MaterialPageRoute(builder: (context){
+      return NewsDetail();
+    });
+  }
+  
 }

@@ -28,22 +28,26 @@ class NewsListTile extends StatelessWidget {
               return LoadingContainer();
             }
 
-            return buildTile(itemSnapshot.data);
+            return buildTile(context,itemSnapshot.data);
           },
         );
       },
     );
   }
 
-  Widget buildTile(ItemModel item) {
+  Widget buildTile(BuildContext context,ItemModel item) {
     return Column(
       children: [
         ListTile(
+          onTap: (){
+            Navigator.pushNamed(context, '/${item.id}');
+          },
           title: Text(item.title),
           subtitle: Text(item.score.toString() + ' votes by ${item.by} '),
           trailing: Column(
             children: [Icon(Icons.comment), Text(item.descendants.toString())],
           ),
+          
         ),Divider(thickness: 3,height: 10.0,),
       ],
     );
