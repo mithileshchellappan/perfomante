@@ -9,6 +9,13 @@ class App extends StatelessWidget {
       child: MaterialApp(
         title: 'Perfomante',
         home: NewsList(),
+        onGenerateRoute: (RouteSettings settings) {
+          return MaterialPageRoute(
+            builder: (context) {
+              return NewsList();
+            },
+          );
+        },
       ),
     );
   }

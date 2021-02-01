@@ -28,7 +28,7 @@ class StoriesBloc {
     print('ides $ids');
   }
 
-  Future<int> clearCache(){
+  clearCache(){
     return _repository.clearCache();
   }
 
