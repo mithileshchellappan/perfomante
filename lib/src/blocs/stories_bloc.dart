@@ -16,16 +16,16 @@ class StoriesBloc {
   Function(int) get fetchItem => _itemsFetcher.sink.add;
 
   StoriesBloc() {
-    print('at cons');
+    
 
     _itemsFetcher.stream.transform(_itemsTransformer()).pipe(_itemsOutput);
   }
 
   fetchTopIds() async {
-    print('at fetch top ids');
+    
     final ids = await _repository.fetchTopIds();
     _topIds.sink.add(ids);
-    print('ides $ids');
+    
   }
 
   clearCache(){
@@ -33,10 +33,10 @@ class StoriesBloc {
   }
 
   _itemsTransformer() {
-    print('at transformer');
+    
     return ScanStreamTransformer(
       (Map<int, Future<ItemModel>> cache, int id, index) {
-        print('call $index');
+        
         cache[id] = _repository.fetchItem(id);
         return cache;
       },

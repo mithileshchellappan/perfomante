@@ -17,7 +17,7 @@ class NewsListTile extends StatelessWidget {
       builder: (context, AsyncSnapshot<Map<int, Future<ItemModel>>> snapshot) {
         //print(snapshot.data.length.toString);
         if (!snapshot.hasData) {
-          print(snapshot.data);
+          
           return LoadingContainer();
         }
 
