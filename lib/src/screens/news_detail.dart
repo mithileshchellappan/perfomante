@@ -27,28 +27,31 @@ class NewsDetail extends StatelessWidget {
           return LoadingContainer();
         }
         final itemFuture = snapshot.data[itemId];
-
         return FutureBuilder(
             future: itemFuture,
             builder: (context, AsyncSnapshot<ItemModel> itemSnapshot) {
               if (!itemSnapshot.hasData) {
                 return LoadingContainer();
               }
-              return buildTitle(itemSnapshot.data);
+              return buildList(itemSnapshot.data,snapshot.data);
             });
       },
     );
   }
 
+  Widget buildList(ItemModel item,Map<int,Future<ItemModel>> itemMap){}
+
   Widget buildTitle(ItemModel item) {
     return Container(
+      alignment: Alignment.topCenter,
       margin: EdgeInsets.all(8.0),
       child: Text(
         item.title,
         textAlign: TextAlign.center,
         style: TextStyle(
           fontSize: 20.0,
-          fontWeight: FontWeight.bold,
+          fontWeight: FontWeight.w400, 
+           
         ),
       ),
     );
