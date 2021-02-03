@@ -11,12 +11,27 @@ class Comment extends StatelessWidget {
   Widget build(BuildContext context) {
     return FutureBuilder(
       future: map[itemId],
-      builder: (context,AsyncSnapshot<ItemModel> snapshot) {
-        if(!snapshot.hasData){
+      builder: (context, AsyncSnapshot<ItemModel> snapshot) {
+        if (!snapshot.hasData) {
           return Text('loading');
-
         }
-        return Text(snapshot.data.text);
+        final children = <Widget>[
+          ListTile(
+            title: Text(snapshot.data.text),
+            subtitle: Text(snapshot.data.by),
+          ),Divider()
+        ];
+
+        snapshot.data.kids.forEach((kidId) {
+          children.add(
+            Comment(
+              itemId: kidId,
+              map: map,
+            ),
+          );
+        });
+
+        return Column(children: children);
       },
     );
   }
